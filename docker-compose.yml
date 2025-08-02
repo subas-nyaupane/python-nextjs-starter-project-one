@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: topproduct-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - OPENAI_API_KEY="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"
+      - DATABASE_URL=postgresql://postgres:postgres@pgsql:5432/topproduct
+    depends_on:
+      - pgsql
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: topproduct-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=production
+
+  pgsql:
+    image: postgres:15
+    container_name: topproduct-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: topproduct
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+volumes:
+  pgdata:
