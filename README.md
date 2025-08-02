@@ -1,6 +1,6 @@
 ### How to install project
 
- <code>docker compose up --build"</code>
+ <code>docker compose up --build</code>
 
 ### Let's visit
 
