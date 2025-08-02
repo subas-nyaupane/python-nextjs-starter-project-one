@@ -55,7 +55,7 @@ def query_ai(data: AIRequest):
                 {"role": "system", "content": "You're a helpful assistant about global products."},
                 {"role": "user", "content": data.prompt},
             ]
-        )
+        )  
         return {"answer": response.choices[0].message.content}
     except Exception as e:
         return {"error": str(e)}
